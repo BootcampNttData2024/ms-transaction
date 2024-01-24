@@ -1,0 +1,285 @@
+openapi: '3.0.2'
+info:
+  title: Microservice Transaction - OpenAPI 3.0
+  version: '1.0'
+  description: |- 
+    La presente especificación contiene los endpoints del microservicio Transaction
+    y esta basado en la especificación OpenAPI 3.0.  
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: alcibarvasquez@gmail.com
+servers:
+  - url: http://localhost:8095
+
+tags:
+  - name: Transaction
+    description: transaction
+  - name: TransactionType
+    description: transaction type
+
+paths:  
+  /transaction:
+    post:
+      tags:
+        - Transaction
+      operationId: addTransaction
+      description: 'POST'
+      requestBody:
+        $ref: '#/components/requestBodies/TransactionRequest'
+      responses:
+        '200':
+          description: 'response transaction post'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'    
+    get:
+      tags:
+        - Transaction
+      operationId: getAllTransactions
+      description: GETALL
+      responses:
+        '200':
+          description: 'response get all transactions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionResponse'
+  /transaction/{transactionId}:
+    put:
+      tags:
+        - Transaction
+      operationId: updateTransaction
+      description: 'PUT'
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/TransactionRequest'
+      responses:
+        '200':
+          description: 'response transaction put'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+    get:
+      tags:
+        - Transaction
+      operationId: getTransactionById
+      description: GET
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get transaction by id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+    delete:
+      tags:
+        - Transaction
+      operationId: deleteTransactionById
+      description: 'DELETE'
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete transaction by id          
+  /transaction-type:
+    post:
+      tags:
+        - TransactionType
+      operationId: addTransactionType
+      description: 'POST'
+      requestBody:
+        $ref: '#/components/requestBodies/TransactionTypeRequest'
+      responses:
+        '200':
+          description: 'response transaction type post'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionTypeResponse'      
+    get:
+      tags:
+        - TransactionType
+      operationId: getAllTransactionType
+      description: GETALL
+      responses:
+        '200':
+          description: 'response get all transaction type'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TransactionTypeResponse'
+  /transaction-type/{transactionTypeId}:
+    put:
+      tags:
+        - TransactionType
+      operationId: updateTransactionType
+      description: 'PUT'
+      parameters:
+        - in: path
+          name: transactionTypeId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/TransactionTypeRequest'
+      responses:
+        '200':
+          description: 'response transaction type put'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionTypeResponse'
+    get:
+      tags:
+        - TransactionType
+      operationId: getTransactionTypeById
+      description: GET
+      parameters:
+        - in: path
+          name: transactionTypeId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get transaction type by id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionTypeResponse'
+    delete:
+      tags:
+        - TransactionType
+      operationId: deleteTransactionTypeById
+      description: 'DELETE'
+      parameters:
+        - in: path
+          name: transactionTypeId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: delete transaction type by id
+
+components:
+  schemas:
+    TransactionRequest:
+      type: object
+      description: Transaction model
+      required:        
+        - transactionTypeId
+      properties:        
+        transactionTypeId:
+          type: string
+          example: '1'          
+        fromClientId:
+          type: string
+          example: '1'  
+        fromProductId:
+          type: string
+          example: '1'  
+        fromAccountNumber:
+          type: string
+          format: '452163258547'
+        toClientId:
+          type: string
+          example: '2'  
+        toProductId:
+          type: string
+          example: '2'  
+        toAccountNumber:
+          type: string
+          format: '452163258548'    
+        transactionAmount:
+          type: number
+          format: double
+          example: 500.20
+        transactionDate:
+          type: string
+          format: date-time
+    TransactionResponse:
+      type: object
+      description: Transaction model      
+      properties:
+        transactionId:
+          type: string
+          example: '1'
+        transactionType:
+          $ref: '#/components/schemas/TransactionTypeResponse'         
+        fromClientId:
+          type: string
+          example: '1'  
+        fromProductId:
+          type: string
+          example: '1'  
+        fromAccountNumber:
+          type: string
+          format: '452163258547'
+        toClientId:
+          type: string
+          example: '2'  
+        toProductId:
+          type: string
+          example: '2'  
+        toAccountNumber:
+          type: string
+          format: '452163258548'    
+        transactionAmount:
+          type: number
+          format: double
+          example: 500.20
+        transactionDate:
+          type: string
+          format: date-time
+    TransactionTypeRequest:
+      type: object
+      description: Transaction type model
+      properties:        
+        name:
+          type: string
+          example: 'DEPOSITO, RETIRO, PAGO'
+    TransactionTypeResponse:
+      type: object
+      description: Transaction type model
+      properties:
+        transactionTypeId:
+          type: string
+          example: '1'
+        name:
+          type: string
+          example: 'DEPOSITO, RETIRO, PAGO'  
+  requestBodies:
+    TransactionRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionRequest'
+    TransactionTypeRequest:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionTypeRequest'
