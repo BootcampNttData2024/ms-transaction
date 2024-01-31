@@ -216,9 +216,6 @@ components:
           type: number
           format: double
           example: 500.20
-        transactionDate:
-          type: string
-          format: date-time
     TransactionResponse:
       type: object
       description: Transaction model      
@@ -226,8 +223,9 @@ components:
         transactionId:
           type: string
           example: '1'
-        transactionType:
-          $ref: '#/components/schemas/TransactionTypeResponse'         
+        transactionTypeId:
+          type: string
+          example: '1'         
         fromClientId:
           type: string
           example: '1'  

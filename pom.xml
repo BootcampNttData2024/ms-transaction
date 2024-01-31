@@ -82,12 +82,11 @@
 							<generatorName>spring</generatorName>
 							<apiPackage>com.vasquez.mstransaction.api</apiPackage>
 							<modelPackage>com.vasquez.mstransaction.model</modelPackage>
-							<generateSupportingFiles>false</generateSupportingFiles>
+							<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
 							<configOptions>
 								<reactive>true</reactive>
 								<serializableModel>true</serializableModel>
-								<interfaceOnly>true</interfaceOnly>
-								<skipDefaultInterface>true</skipDefaultInterface>
+								<delegatePattern>true</delegatePattern>
 								<useResponseEntity>false</useResponseEntity>
 							</configOptions>
 						</configuration>

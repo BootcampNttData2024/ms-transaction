@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -24,7 +25,8 @@ public class Transaction {
     @NotNull
     private String fromClientId;
 
-    private Double fromProductId;
+    @NotNull
+    private String fromProductId;
 
     @NotNull
     private String fromAccountNumber;
@@ -41,6 +43,6 @@ public class Transaction {
     @NotNull
     private Double transactionAmount;
 
-    private LocalDate requestedDate;
+    private LocalDateTime transactionDate = LocalDateTime.now();
 
 }

@@ -1,7 +1,11 @@
 server:
-  port: 8091
+  port: 8095
 spring:
   data:
     mongodb:
       uri: mongodb+srv://BootcampNttdata2024:k9tUuUwOvkdqqrjE@bootcampnttdata2024.zcxsoou.mongodb.net/?retryWrites=true&w=majority
       database: MSDBTRANSACTION
+
+microservices:
+  ms-account:
+    base:url: http://localhost:8091
