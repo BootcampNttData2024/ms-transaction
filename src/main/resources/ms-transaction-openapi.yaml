@@ -99,7 +99,28 @@ paths:
             type: string
       responses:
         '200':
-          description: delete transaction by id          
+          description: delete transaction by id   
+  /transaction/commission-report:    
+    get:
+      tags:
+        - Transaction
+      operationId: getCommissionReport
+      description: GET
+      parameters:
+        - in: query
+          name: clientId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get commission reportby client id'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissionReport'       
   /transaction-type:
     post:
       tags:
@@ -181,7 +202,7 @@ paths:
             type: string
       responses:
         '200':
-          description: delete transaction type by id
+          description: delete transaction type by id  
 
 components:
   schemas:
@@ -215,7 +236,7 @@ components:
         transactionAmount:
           type: number
           format: double
-          example: 500.20
+          example: 500.20        
     TransactionResponse:
       type: object
       description: Transaction model      
@@ -248,6 +269,10 @@ components:
           type: number
           format: double
           example: 500.20
+        commissionPerTransaction:
+          type: number
+          format: double
+          example: 5
         transactionDate:
           type: string
           format: date-time
@@ -268,6 +293,22 @@ components:
         name:
           type: string
           example: 'DEPOSITO, RETIRO, PAGO'  
+    CommissionReport:
+      type: object
+      description: Commision report model
+      properties:
+        transactionId:
+          type: string
+          example: '1'
+        productId:
+          type: string
+          example: '1'
+        commissionCharged:
+          type: number
+          format: double
+          example: 500.20
+        transactionDate:
+          type: string          
   requestBodies:
     TransactionRequest:
       required: true

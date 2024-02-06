@@ -87,7 +87,6 @@
 								<reactive>true</reactive>
 								<serializableModel>true</serializableModel>
 								<delegatePattern>true</delegatePattern>
-								<useResponseEntity>false</useResponseEntity>
 							</configOptions>
 						</configuration>
 					</execution>
