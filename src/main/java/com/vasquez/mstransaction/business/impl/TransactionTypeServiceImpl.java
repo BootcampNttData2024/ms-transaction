@@ -1,14 +1,14 @@
-package com.vasquez.mstransaction.service.impl;
+package com.vasquez.mstransaction.business.impl;
 
 import com.vasquez.mstransaction.entity.TransactionType;
 import com.vasquez.mstransaction.repository.TransactionTypeRepository;
-import com.vasquez.mstransaction.service.TransactionTypeService;
+import com.vasquez.mstransaction.business.TransactionTypeService;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Transaction type service implementation.
+ * Transfer type service implementation.
  *
  * @author Vasquez
  * @version 1.0.

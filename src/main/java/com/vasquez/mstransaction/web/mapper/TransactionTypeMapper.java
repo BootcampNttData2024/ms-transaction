@@ -1,38 +1,40 @@
 package com.vasquez.mstransaction.web.mapper;
 
 import com.vasquez.mstransaction.entity.TransactionType;
-import com.vasquez.mstransaction.model.TransactionTypeRequest;
-import com.vasquez.mstransaction.model.TransactionTypeResponse;
+import com.vasquez.mstransaction.model.TransactionTypeModel;
 import org.springframework.beans.BeanUtils;
 
 /**
- * Transaction type mapper.
+ * Transfer type mapper.
  *
  * @author Vasquez
  * @version 1.0.
  */
 public class TransactionTypeMapper {
 
+  TransactionTypeMapper() {
+  }
+
   /**
-   * Transaction type request to entity.
+   * Transfer type request to entity.
    *
    * @param transactionTypeRequest transaction type request.
    * @return transaction type entity.
    */
-  public static TransactionType toEntity(TransactionTypeRequest transactionTypeRequest) {
+  public static TransactionType toEntity(TransactionTypeModel transactionTypeRequest) {
     TransactionType transactionType = new TransactionType();
     BeanUtils.copyProperties(transactionTypeRequest, transactionType);
     return transactionType;
   }
 
   /**
-   * Transaction type entity to response.
+   * Transfer type entity to response.
    *
    * @param transactionType transaction type entity.
    * @return transaction type response.
    */
-  public static TransactionTypeResponse toResponse(TransactionType transactionType) {
-    TransactionTypeResponse transactionTypeResponse = new TransactionTypeResponse();
+  public static TransactionTypeModel toResponse(TransactionType transactionType) {
+    TransactionTypeModel transactionTypeResponse = new TransactionTypeModel();
     BeanUtils.copyProperties(transactionType, transactionTypeResponse);
     return transactionTypeResponse;
   }

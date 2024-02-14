@@ -1,4 +1,4 @@
-package com.vasquez.mstransaction.service.exception;
+package com.vasquez.mstransaction.business.exception;
 
 import java.time.LocalDateTime;
 import lombok.Data;

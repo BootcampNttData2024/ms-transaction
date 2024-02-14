@@ -1,11 +1,11 @@
-package com.vasquez.mstransaction.service;
+package com.vasquez.mstransaction.business;
 
 import com.vasquez.mstransaction.entity.TransactionType;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Transaction type service.
+ * Transfer type service.
  *
  * @author Vasquez
  * @version 1.0.

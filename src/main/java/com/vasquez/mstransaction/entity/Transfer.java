@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Transaction entity.
+ * Transfer entity.
  *
  * @author Vasquez
  * @version 1.0.
@@ -21,14 +21,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "transaction")
-public class Transaction {
+@Document(collection = "transfer")
+public class Transfer {
 
   @Id
   private String transactionId;
-
-  @NotNull
-  private String transactionTypeId;
 
   @NotNull
   private String fromClientId;
@@ -51,8 +48,6 @@ public class Transaction {
   @NotNull
   private Double transactionAmount;
 
-  private Double commissionPerTransaction;
-
-  private LocalDateTime transactionDate = LocalDateTime.now();
+  private String transactionDate;
 
 }

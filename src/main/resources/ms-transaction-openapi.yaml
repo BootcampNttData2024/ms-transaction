@@ -1,6 +1,6 @@
 openapi: '3.0.2'
 info:
-  title: Microservice Transaction - OpenAPI 3.0
+  title: Microservice DespositTransaction - OpenAPI 3.0
   version: '1.0'
   description: |- 
     La presente especificación contiene los endpoints del microservicio Transaction
@@ -11,32 +11,40 @@ info:
 servers:
   - url: http://localhost:8095
 
-tags:
-  - name: Transaction
-    description: transaction
+tags:  
+  - name: Transfer
+    description: Transferency transaction
+  - name: Withdrawal
+    description: Withdrawal transaction
+  - name: Deposit
+    description: Deposit transaction
+  - name: Payment
+    description: Payment transaction
   - name: TransactionType
     description: transaction type
+  - name: Report
+    description: Report transaction
 
 paths:  
-  /transaction:
+  /transaction/transfer:
     post:
       tags:
-        - Transaction
-      operationId: addTransaction
+        - Transfer
+      operationId: addTransfer
       description: 'POST'
       requestBody:
-        $ref: '#/components/requestBodies/TransactionRequest'
+        $ref: '#/components/requestBodies/TransferModel'
       responses:
         '200':
           description: 'response transaction post'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'    
+                $ref: '#/components/schemas/TransferModel'    
     get:
       tags:
-        - Transaction
-      operationId: getAllTransactions
+        - Transfer
+      operationId: getAllTransfers
       description: GETALL
       responses:
         '200':
@@ -46,12 +54,12 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TransactionResponse'
-  /transaction/{transactionId}:
+                  $ref: '#/components/schemas/TransferModel'
+  /transaction/transfer/{transactionId}:
     put:
       tags:
-        - Transaction
-      operationId: updateTransaction
+        - Transfer
+      operationId: updateTransfer
       description: 'PUT'
       parameters:
         - in: path
@@ -60,18 +68,18 @@ paths:
           schema:
             type: string
       requestBody:
-        $ref: '#/components/requestBodies/TransactionRequest'
+        $ref: '#/components/requestBodies/TransferModel'
       responses:
         '200':
           description: 'response transaction put'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
+                $ref: '#/components/schemas/TransferModel'
     get:
       tags:
-        - Transaction
-      operationId: getTransactionById
+        - Transfer
+      operationId: getTransferById
       description: GET
       parameters:
         - in: path
@@ -85,12 +93,62 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionResponse'
-    delete:
+                $ref: '#/components/schemas/TransferModel'
+  /transaction/withdrawal:
+    post:
       tags:
-        - Transaction
-      operationId: deleteTransactionById
-      description: 'DELETE'
+        - Withdrawal
+      operationId: addWithdrawal
+      description: 'POST'
+      requestBody:
+        $ref: '#/components/requestBodies/WithdrawalModel'
+      responses:
+        '200':
+          description: 'response transaction post'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalModel'    
+    get:
+      tags:
+        - Withdrawal
+      operationId: getAllWithdrawals
+      description: GETALL
+      responses:
+        '200':
+          description: 'response get all transactions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/WithdrawalModel'
+  /transaction/withdrawal/{transactionId}:
+    put:
+      tags:
+        - Withdrawal
+      operationId: updateWithdrawal
+      description: 'PUT'
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/WithdrawalModel'
+      responses:
+        '200':
+          description: 'response transaction put'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalModel'
+    get:
+      tags:
+        - Withdrawal
+      operationId: getWithdrawalById
+      description: GET
       parameters:
         - in: path
           name: transactionId
@@ -99,28 +157,147 @@ paths:
             type: string
       responses:
         '200':
-          description: delete transaction by id   
-  /transaction/commission-report:    
-    get:
+          description: 'response get transaction by id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalModel'
+  /transaction/deposit:
+    post:
       tags:
-        - Transaction
-      operationId: getCommissionReport
-      description: GET
-      parameters:
-        - in: query
-          name: clientId
-          required: true
-          schema:
-            type: string
+        - Deposit
+      operationId: addDeposit
+      description: 'POST'
+      requestBody:
+        $ref: '#/components/requestBodies/DepositModel'
       responses:
         '200':
-          description: 'response get commission reportby client id'
+          description: 'response transaction post'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositModel'    
+    get:
+      tags:
+        - Deposit
+      operationId: getAllDeposits
+      description: GETALL
+      responses:
+        '200':
+          description: 'response get all transactions'
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CommissionReport'       
+                  $ref: '#/components/schemas/DepositModel'
+  /transaction/desposit/{transactionId}:
+    put:
+      tags:
+        - Deposit
+      operationId: updateDeposit
+      description: 'PUT'
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/DepositModel'
+      responses:
+        '200':
+          description: 'response transaction put'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositModel'
+    get:
+      tags:
+        - Deposit
+      operationId: getDepositById
+      description: GET
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get transaction by id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositModel'   
+  /transaction/payment:
+    post:
+      tags:
+        - Payment
+      operationId: addPayment
+      description: 'POST'
+      requestBody:
+        $ref: '#/components/requestBodies/PaymentModel'
+      responses:
+        '200':
+          description: 'response transaction post'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentModel'    
+    get:
+      tags:
+        - Payment
+      operationId: getAllPayments
+      description: GETALL
+      responses:
+        '200':
+          description: 'response get all transactions'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PaymentModel'
+  /transaction/payment/{transactionId}:
+    put:
+      tags:
+        - Payment
+      operationId: updatePayment
+      description: 'PUT'
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: '#/components/requestBodies/PaymentModel'
+      responses:
+        '200':
+          description: 'response transaction put'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentModel'
+    get:
+      tags:
+        - Payment
+      operationId: getPaymentById
+      description: GET
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get transaction by id'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentModel'   
   /transaction-type:
     post:
       tags:
@@ -128,14 +305,14 @@ paths:
       operationId: addTransactionType
       description: 'POST'
       requestBody:
-        $ref: '#/components/requestBodies/TransactionTypeRequest'
+        $ref: '#/components/requestBodies/TransactionTypeModel'
       responses:
         '200':
           description: 'response transaction type post'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionTypeResponse'      
+                $ref: '#/components/schemas/TransactionTypeModel'      
     get:
       tags:
         - TransactionType
@@ -149,7 +326,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/TransactionTypeResponse'
+                  $ref: '#/components/schemas/TransactionTypeModel'
   /transaction-type/{transactionTypeId}:
     put:
       tags:
@@ -163,14 +340,14 @@ paths:
           schema:
             type: string
       requestBody:
-        $ref: '#/components/requestBodies/TransactionTypeRequest'
+        $ref: '#/components/requestBodies/TransactionTypeModel'
       responses:
         '200':
           description: 'response transaction type put'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionTypeResponse'
+                $ref: '#/components/schemas/TransactionTypeModel'
     get:
       tags:
         - TransactionType
@@ -188,7 +365,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionTypeResponse'
+                $ref: '#/components/schemas/TransactionTypeModel'
     delete:
       tags:
         - TransactionType
@@ -203,50 +380,37 @@ paths:
       responses:
         '200':
           description: delete transaction type by id  
+  /transaction/commission-report:    
+    get:
+      tags:
+        - Report
+      operationId: getCommissionReport
+      description: GET
+      parameters:
+        - in: query
+          name: clientId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'response get commission reportby client id'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CommissionReport'
 
 components:
-  schemas:
-    TransactionRequest:
+  schemas:          
+    TransferModel:
       type: object
-      description: Transaction model
-      required:        
-        - transactionTypeId
-      properties:        
-        transactionTypeId:
-          type: string
-          example: '1'          
-        fromClientId:
-          type: string
-          example: '1'  
-        fromProductId:
-          type: string
-          example: '1'  
-        fromAccountNumber:
-          type: string
-          format: '452163258547'
-        toClientId:
-          type: string
-          example: '2'  
-        toProductId:
-          type: string
-          example: '2'  
-        toAccountNumber:
-          type: string
-          format: '452163258548'    
-        transactionAmount:
-          type: number
-          format: double
-          example: 500.20        
-    TransactionResponse:
-      type: object
-      description: Transaction model      
+      description: Transfer model
       properties:
         transactionId:
           type: string
-          example: '1'
-        transactionTypeId:
-          type: string
-          example: '1'         
+          example: '1'        
         fromClientId:
           type: string
           example: '1'  
@@ -255,7 +419,7 @@ components:
           example: '1'  
         fromAccountNumber:
           type: string
-          format: '452163258547'
+          example: '452163258547'
         toClientId:
           type: string
           example: '2'  
@@ -264,7 +428,63 @@ components:
           example: '2'  
         toAccountNumber:
           type: string
-          format: '452163258548'    
+          example: '452163258548 REW'    
+        transactionAmount:
+          type: number
+          format: double
+          example: 500.20
+        transactionDate:
+          type: string
+          example: '2024-01-28 00:00'
+    WithdrawalModel:
+      type: object
+      description: Withdrawal model
+      required:
+        - accountNumber
+        - transactionAmount
+      properties:
+        transactionId:
+          type: string
+          example: '1' 
+        clientId:
+          type: string
+          example: '1' 
+        productId:
+          type: string
+          example: '1'  
+        accountNumber:
+          type: string
+          example: '452163258547'
+        transactionAmount:
+          type: number
+          format: double
+          example: 500.20
+        commissionPerTransaction:
+          type: number
+          format: double
+          example: 5        
+        transactionDate:
+          type: string   
+          example: '2024-01-28 00:00'       
+    DepositModel:
+      type: object
+      description: Desposit model
+      required:
+        - accountNumber
+        - transactionAmount
+      properties:
+        transactionId:
+          type: string
+          example: '1'  
+        clientId:
+          type: string
+          example: '1'       
+        productId:
+          type: string
+          example: '1'  
+        accountNumber:
+          type: string
+          example: '452163258547'  
         transactionAmount:
           type: number
           format: double
@@ -275,15 +495,40 @@ components:
           example: 5
         transactionDate:
           type: string
-          format: date-time
-    TransactionTypeRequest:
+          example: '2024-01-28 00:00'
+    PaymentModel:
       type: object
-      description: Transaction type model
-      properties:        
-        name:
+      description: Desposit model
+      required:
+        - productId
+        - transactionAmount
+      properties:
+        transactionId:
           type: string
-          example: 'DEPOSITO, RETIRO, PAGO'
-    TransactionTypeResponse:
+          example: '1'  
+        clientId:
+          type: string
+          example: '1'       
+        productId:
+          type: string
+          example: '1'  
+        cardNumber:
+          type: string
+          example: '452163258547'  
+        fromPhoneNumber:
+          type: string
+          example: '929292921'
+        toPhoneNumber:
+          type: string
+          example: '929292922'
+        transactionAmount:
+          type: number
+          format: double
+          example: 500.20
+        transactionDate:
+          type: string
+          example: '2024-01-28 00:00'
+    TransactionTypeModel:
       type: object
       description: Transaction type model
       properties:
@@ -310,15 +555,33 @@ components:
         transactionDate:
           type: string          
   requestBodies:
-    TransactionRequest:
+    TransferModel:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TransactionRequest'
-    TransactionTypeRequest:
+            $ref: '#/components/schemas/TransferModel'
+    WithdrawalModel:
       required: true
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/TransactionTypeRequest'
+            $ref: '#/components/schemas/WithdrawalModel'
+    DepositModel:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/DepositModel'
+    PaymentModel:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PaymentModel'
+    TransactionTypeModel:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TransactionTypeModel'

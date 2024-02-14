@@ -1,6 +1,5 @@
 package com.vasquez.mstransaction.entity;
 
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,25 +8,33 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 /**
- * Transfer type entity.
+ * Withdrawal entity.
  *
  * @author Vasquez
- * @version 1.0.
+ * @version 1.0.0
  */
 @Data
 @Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "transaction_type")
-public class TransactionType {
+@Document(collection = "withdrawal")
+public class Withdrawal {
 
   @Id
-  private String transactionTypeId;
+  private String transactionId;
 
-  @NotNull
-  private String name;
+  private String clientId;
+
+  private String productId;
+
+  private String accountNumber;
+
+  private Double transactionAmount;
+
+  private Double commissionPerTransaction;
+
+  private String transactionDate;
 
 }

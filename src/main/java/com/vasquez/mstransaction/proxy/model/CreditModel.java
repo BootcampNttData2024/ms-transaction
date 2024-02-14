@@ -9,7 +9,7 @@ import lombok.Data;
  * @version 1.0.
  */
 @Data
-public class CreditResponse {
+public class CreditModel {
 
   private String creditId;
 

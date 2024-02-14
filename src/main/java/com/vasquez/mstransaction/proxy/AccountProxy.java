@@ -1,6 +1,6 @@
 package com.vasquez.mstransaction.proxy;
 
-import com.vasquez.mstransaction.proxy.model.AccountResponse;
+import com.vasquez.mstransaction.proxy.model.AccountModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,12 +26,26 @@ public class AccountProxy {
    * @param accountNumber account number.
    * @return account response.
    */
-  public Mono<AccountResponse> getByAccountNumber(String accountNumber) {
+  public Mono<AccountModel> getByAccountNumber(String accountNumber) {
     return WebClient.create()
       .get()
       .uri(accountBaseUrl + "/account/filter?accountNumber=" + accountNumber)
       .retrieve()
-      .bodyToMono(AccountResponse.class);
+      .bodyToMono(AccountModel.class);
+  }
+
+  /**
+   * Get account
+   *
+   * @param accountId account
+   * @return account response.
+   */
+  public Mono<AccountModel> getByAccountById(String accountId) {
+    return WebClient.create()
+      .get()
+      .uri(accountBaseUrl + "/account/" + accountId)
+      .retrieve()
+      .bodyToMono(AccountModel.class);
   }
 
   /**
@@ -39,7 +53,7 @@ public class AccountProxy {
    *
    * @param request account
    */
-  public Mono<AccountResponse> updateAccount(AccountResponse request) {
+  public Mono<AccountModel> updateAccount(AccountModel request) {
     log.info("request: {}", request);
     return WebClient.create()
       .put()
@@ -47,7 +61,7 @@ public class AccountProxy {
       //s.contentType(MediaType.APPLICATION_JSON)
       .bodyValue(request)
       .retrieve()
-      .bodyToMono(AccountResponse.class);
+      .bodyToMono(AccountModel.class);
   }
 
 }

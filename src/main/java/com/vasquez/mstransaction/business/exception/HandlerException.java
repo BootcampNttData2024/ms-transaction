@@ -1,4 +1,4 @@
-package com.vasquez.mstransaction.service.exception;
+package com.vasquez.mstransaction.business.exception;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

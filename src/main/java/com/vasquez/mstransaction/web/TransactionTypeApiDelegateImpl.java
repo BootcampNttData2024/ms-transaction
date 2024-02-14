@@ -1,9 +1,8 @@
 package com.vasquez.mstransaction.web;
 
 import com.vasquez.mstransaction.api.TransactionTypeApiDelegate;
-import com.vasquez.mstransaction.model.TransactionTypeRequest;
-import com.vasquez.mstransaction.model.TransactionTypeResponse;
-import com.vasquez.mstransaction.service.TransactionTypeService;
+import com.vasquez.mstransaction.business.TransactionTypeService;
+import com.vasquez.mstransaction.model.TransactionTypeModel;
 import com.vasquez.mstransaction.web.mapper.TransactionTypeMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * Transaction type api delegate implementation.
+ * Transfer type api delegate implementation.
  *
  * @author Vasquez
  * @version 1.0.
@@ -27,7 +26,7 @@ public class TransactionTypeApiDelegateImpl implements TransactionTypeApiDelegat
   }
 
   @Override
-  public Mono<ResponseEntity<TransactionTypeResponse>> addTransactionType(Mono<TransactionTypeRequest> transactionTypeRequest, ServerWebExchange exchange) {
+  public Mono<ResponseEntity<TransactionTypeModel>> addTransactionType(Mono<TransactionTypeModel> transactionTypeRequest, ServerWebExchange exchange) {
     return transactionTypeRequest
       .map(TransactionTypeMapper::toEntity)
       .flatMap(transactionTypeService::create)
@@ -42,21 +41,21 @@ public class TransactionTypeApiDelegateImpl implements TransactionTypeApiDelegat
   }
 
   @Override
-  public Mono<ResponseEntity<Flux<TransactionTypeResponse>>> getAllTransactionType(ServerWebExchange exchange) {
+  public Mono<ResponseEntity<Flux<TransactionTypeModel>>> getAllTransactionType(ServerWebExchange exchange) {
     return Mono.just(transactionTypeService.findAll()
         .map(TransactionTypeMapper::toResponse))
       .map(ResponseEntity::ok);
   }
 
   @Override
-  public Mono<ResponseEntity<TransactionTypeResponse>> getTransactionTypeById(String transactionTypeId, ServerWebExchange exchange) {
+  public Mono<ResponseEntity<TransactionTypeModel>> getTransactionTypeById(String transactionTypeId, ServerWebExchange exchange) {
     return transactionTypeService.findById(transactionTypeId)
       .map(TransactionTypeMapper::toResponse)
       .map(ResponseEntity::ok);
   }
 
   @Override
-  public Mono<ResponseEntity<TransactionTypeResponse>> updateTransactionType(String transactionTypeId, Mono<TransactionTypeRequest> transactionTypeRequest, ServerWebExchange exchange) {
+  public Mono<ResponseEntity<TransactionTypeModel>> updateTransactionType(String transactionTypeId, Mono<TransactionTypeModel> transactionTypeRequest, ServerWebExchange exchange) {
     return transactionTypeRequest
       .map(TransactionTypeMapper::toEntity)
       .flatMap(traTyp -> transactionTypeService.update(traTyp, transactionTypeId))

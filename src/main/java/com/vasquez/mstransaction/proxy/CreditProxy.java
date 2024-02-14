@@ -1,6 +1,7 @@
 package com.vasquez.mstransaction.proxy;
 
-import com.vasquez.mstransaction.proxy.model.CreditResponse;
+import com.vasquez.mstransaction.proxy.model.CreditModel;
+import com.vasquez.mstransaction.proxy.model.DebitCardModel;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -25,14 +26,23 @@ public class CreditProxy {
    *
    * @param request credit
    */
-  public Mono<CreditResponse> modifyCredit(CreditResponse request) {
-    log.info("request: {}", request);
+  public Mono<CreditModel> modifyCredit(CreditModel request) {
+    log.info("request modifyCredit: {}", request);
     return WebClient.create()
       .patch()
       .uri(creditBaseUrl + "/credit/" + request.getCardNumber())
       .bodyValue(request)
       .retrieve()
-      .bodyToMono(CreditResponse.class);
+      .bodyToMono(CreditModel.class);
+  }
+
+  public Mono<DebitCardModel> getDebitCardById(String debitCardId) {
+    log.info("request getDebitCardById: {}", debitCardId);
+    return WebClient.create()
+      .get()
+      .uri(creditBaseUrl + "/debit-card/" + debitCardId)
+      .retrieve()
+      .bodyToMono(DebitCardModel.class);
   }
 
 }
