@@ -1,16 +1,8 @@
 package com.vasquez.mstransaction.business.impl;
 
-import com.vasquez.mstransaction.business.TransactionTypeService;
 import com.vasquez.mstransaction.entity.Transfer;
-import com.vasquez.mstransaction.entity.enums.ProductType;
-import com.vasquez.mstransaction.kafka.producer.KafkaProducer;
 import com.vasquez.mstransaction.proxy.AccountProxy;
-import com.vasquez.mstransaction.proxy.CreditProxy;
-import com.vasquez.mstransaction.proxy.ProductProxy;
-import com.vasquez.mstransaction.proxy.YankiProxy;
 import com.vasquez.mstransaction.proxy.model.AccountModel;
-import com.vasquez.mstransaction.proxy.model.CreditModel;
-import com.vasquez.mstransaction.proxy.model.YankiModel;
 import com.vasquez.mstransaction.repository.TransferRepository;
 import com.vasquez.mstransaction.business.TransferService;
 import com.vasquez.mstransaction.business.exception.AppException;
@@ -36,7 +28,6 @@ public class TransferServiceImpl implements TransferService {
 
   private final TransferRepository transferRepository;
   private final AccountProxy accountProxy;
-  private final KafkaProducer<Transfer> kafkaProducer;
 
   /**
    * Constructor.
@@ -44,10 +35,9 @@ public class TransferServiceImpl implements TransferService {
    * @param transferRepository transaction repository.
    * @param accountProxy       account proxy
    */
-  public TransferServiceImpl(TransferRepository transferRepository, AccountProxy accountProxy, KafkaProducer<Transfer> kafkaProducer) {
+  public TransferServiceImpl(TransferRepository transferRepository, AccountProxy accountProxy) {
     this.transferRepository = transferRepository;
     this.accountProxy = accountProxy;
-    this.kafkaProducer = kafkaProducer;
   }
 
   @Override
@@ -99,9 +89,6 @@ public class TransferServiceImpl implements TransferService {
 
   @Override
   public Flux<Transfer> findAll() {
-    Transfer transfer = new Transfer();
-    transfer.setFromAccountNumber("EJEMPLO DE PRODUCER");
-    kafkaProducer.publish("TRANSACTION_YANKI", "UPDATED", transfer);
     return transferRepository.findAll();
   }
 
